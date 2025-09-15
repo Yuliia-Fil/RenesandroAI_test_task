@@ -1,10 +1,10 @@
 [
-  { "img": "/assets/1.png", "description": "" },
-  { "img": "/assets/2.png", "description": "" },
-  { "img": "/assets/3.png", "description": "" },
-  { "img": "/assets/4.png", "description": "" },
-  { "img": "/assets/5.png", "description": "" },
-  { "img": "/assets/6.png", "description": "" },
-  { "img": "/assets/7.jpg", "description": "" },
-  { "img": "/assets/8.jpg", "description": "" }
+  { "id": 1, "img": "/assets/1.png", "description": "" },
+  { "id": 2, "img": "/assets/2.png", "description": "" },
+  { "id": 3, "img": "/assets/3.png", "description": "" },
+  { "id": 4, "img": "/assets/4.png", "description": "" },
+  { "id": 5, "img": "/assets/5.png", "description": "" },
+  { "id": 6, "img": "/assets/6.png", "description": "" },
+  { "id": 7, "img": "/assets/7.jpg", "description": "" },
+  { "id": 8, "img": "/assets/8.jpg", "description": "" }
 ]

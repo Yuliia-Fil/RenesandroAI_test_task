@@ -1,6 +1,21 @@
 import type { Creative } from "../types";
 
-export const CreativeItem = ({ creative }: { creative: Creative }) => {
+export const CreativeItem = ({
+  creative,
+  ids,
+  setIds,
+}: {
+  creative: Creative;
+  ids: number[];
+  setIds: React.Dispatch<React.SetStateAction<number[]>>;
+}) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      if (!ids.includes(creative.id)) setIds([...ids, creative.id]);
+    } else {
+      setIds(ids.filter((id) => id !== creative.id));
+    }
+  };
   return (
     <div
       style={{
@@ -28,6 +43,8 @@ export const CreativeItem = ({ creative }: { creative: Creative }) => {
           height: "15%",
         }}
         type="checkbox"
+        checked={ids.includes(creative.id)}
+        onChange={handleChange}
       ></input>
     </div>
   );
