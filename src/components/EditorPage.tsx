@@ -1,7 +1,11 @@
+import { useState } from "react";
+import { useIds } from "../hooks/useIds";
 import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
 
 export const EditorPage = () => {
+  const { selectedQuickAds } = useIds();
+  const [selectedCreative, setSelectedCreative] = useState(selectedQuickAds[0]);
   return (
     <div style={{ height: "calc(100vh-80px)", marginBottom: "80px" }}>
       <h1>Edit your creatives</h1>
@@ -15,7 +19,11 @@ export const EditorPage = () => {
           borderRadius: "12px",
         }}
       >
-        <SideBar />
+        <SideBar
+          ads={selectedQuickAds}
+          selectedAd={selectedCreative}
+          setSelectedAd={setSelectedCreative}
+        />
         <div style={{ flex: 2 }}>
           <img
             style={{
@@ -23,7 +31,7 @@ export const EditorPage = () => {
               height: "100%",
               objectFit: "contain",
             }}
-            src="/assets/1.png"
+            src={selectedCreative.img}
           />
         </div>
         <PromptEditor />

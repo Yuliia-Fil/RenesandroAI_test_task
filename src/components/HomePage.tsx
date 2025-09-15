@@ -1,16 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import quickAd from "../data/quickAd.json";
 import { CreativeItem } from "./CreativeItem";
 import { useIds } from "../hooks/useIds";
 import { useMemo } from "react";
 
 export const HomePage = () => {
   const navigate = useNavigate();
-  const { ids, setIds } = useIds();
-  const allIds = useMemo(() => quickAd.map((qA) => qA.id), []);
+  const { ids, setIds, selectedQuickAds, quickAds } = useIds();
+  const allIds = useMemo(() => quickAds.map((qA) => qA.id), [quickAds]);
 
   const handleSelectAll = () => {
-    if (ids.length === quickAd.length) {
+    if (ids.length === quickAds.length) {
       setIds([]);
     } else {
       setIds(allIds);
@@ -37,7 +36,7 @@ export const HomePage = () => {
             gap: "16px",
           }}
         >
-          {quickAd.map((creative) => (
+          {quickAds.map((creative) => (
             <CreativeItem
               ids={ids}
               setIds={setIds}
@@ -61,7 +60,7 @@ export const HomePage = () => {
             <span style={{ fontSize: "14px" }}>quick_ad</span>
             <span
               style={{ fontSize: "11px" }}
-            >{`${quickAd.length} results`}</span>
+            >{`${quickAds.length} results`}</span>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -69,6 +68,7 @@ export const HomePage = () => {
                 type="checkbox"
                 id="selectAll"
                 onChange={handleSelectAll}
+                checked={ids.length === quickAds.length}
               />
               <label style={{ fontSize: "14px" }} htmlFor="selectAll">
                 Select All
@@ -78,10 +78,14 @@ export const HomePage = () => {
           </div>
           <button
             style={{
-              backgroundColor: "white",
-              color: "deeppink",
-              border: "1px solid deeppink",
+              backgroundColor:
+                selectedQuickAds.length === 0 ? "lightgray" : "white",
+              color: selectedQuickAds.length === 0 ? "gray" : "deeppink",
+              cursor: selectedQuickAds.length === 0 ? "not-allowed" : "pointer",
+              border:
+                selectedQuickAds.length === 0 ? "none" : "1px solid deeppink",
             }}
+            disabled={selectedQuickAds.length === 0}
             onClick={() => navigate("/editor")}
           >
             Edit with AI

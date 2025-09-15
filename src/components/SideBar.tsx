@@ -1,7 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import creatives from "../data/quickAd.json";
+import type { Creative } from "../types";
 
-export const SideBar = () => {
+export const SideBar = ({
+  ads,
+  selectedAd,
+  setSelectedAd,
+}: {
+  ads: Creative[];
+  selectedAd: Creative;
+  setSelectedAd: (a: Creative) => void;
+}) => {
   const navigate = useNavigate();
   return (
     <div
@@ -14,11 +22,13 @@ export const SideBar = () => {
         overflowY: "auto",
         backgroundColor: "white",
         padding: "16px",
+        alignItems: "center",
       }}
     >
       <button
         style={{
           backgroundColor: "white",
+          width: "100%",
           color: "deeppink",
           border: "1px solid deeppink",
           position: "sticky",
@@ -35,20 +45,23 @@ export const SideBar = () => {
           gap: "16px",
         }}
       >
-        {creatives.map((c) => (
+        {ads.map((ad) => (
           <div
+            key={ad.id}
             style={{
               width: "150px",
               height: "150px",
             }}
+            onClick={() => setSelectedAd(ad)}
           >
             <img
               style={{
                 width: "100%",
                 objectFit: "contain",
                 borderRadius: "12px",
+                border: selectedAd.id === ad.id ? "2px solid deeppink" : "none",
               }}
-              src={c.img}
+              src={ad.img}
             />
           </div>
         ))}
