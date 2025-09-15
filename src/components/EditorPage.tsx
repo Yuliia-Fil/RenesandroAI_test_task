@@ -23,7 +23,7 @@ export const EditorPage = () => {
               height: "100%",
               objectFit: "contain",
             }}
-            src="src/assets/1.png"
+            src="/assets/1.png"
           />
         </div>
         <PromptEditor />
