@@ -5,7 +5,7 @@ import { CreativeItem } from "./CreativeItem";
 export const HomePage = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div style={{ marginBottom: "80px" }}>
       <h1>Chose your creatives</h1>
       <div
         style={{
