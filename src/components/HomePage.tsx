@@ -55,8 +55,8 @@ export const HomePage = () => {
           <button
             style={{
               backgroundColor: "white",
-              color: "magenta",
-              border: "1px solid magenta",
+              color: "deeppink",
+              border: "1px solid deeppink",
             }}
             onClick={() => navigate("/editor")}
           >
