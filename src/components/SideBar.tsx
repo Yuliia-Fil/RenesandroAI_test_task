@@ -27,13 +27,11 @@ export const SideBar = ({
     >
       <button
         style={{
-          backgroundColor: "white",
           width: "100%",
-          color: "deeppink",
-          border: "1px solid deeppink",
           position: "sticky",
           top: "-16px",
         }}
+        className="white-button"
         onClick={() => navigate("/")}
       >
         Go back

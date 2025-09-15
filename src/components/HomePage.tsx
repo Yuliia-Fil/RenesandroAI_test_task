@@ -77,14 +77,7 @@ export const HomePage = () => {
             <span style={{ fontSize: "11px" }}>{`${ids.length} selected`}</span>
           </div>
           <button
-            style={{
-              backgroundColor:
-                selectedQuickAds.length === 0 ? "lightgray" : "white",
-              color: selectedQuickAds.length === 0 ? "gray" : "deeppink",
-              cursor: selectedQuickAds.length === 0 ? "not-allowed" : "pointer",
-              border:
-                selectedQuickAds.length === 0 ? "none" : "1px solid deeppink",
-            }}
+            className="white-button"
             disabled={selectedQuickAds.length === 0}
             onClick={() => navigate("/editor")}
           >

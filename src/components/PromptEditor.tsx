@@ -39,17 +39,15 @@ export const PromptEditor = () => {
             }}
           />
           <button
+            className="pink-button"
             style={{
               position: "absolute",
               bottom: "5%",
               right: "3%",
               borderRadius: "50%",
-              backgroundColor: "deeppink",
               width: "32px",
               height: "32px",
               padding: 0,
-              border: "none",
-              cursor: "pointer",
             }}
           >
             <svg
@@ -80,19 +78,10 @@ export const PromptEditor = () => {
         </div>
       </div>
       <div style={{ display: "flex", gap: "16px", justifyContent: "end" }}>
-        <button
-          style={{
-            backgroundColor: "white",
-            border: "1px solid deeppink",
-            color: "deeppink",
-          }}
-          onClick={() => navigate("/")}
-        >
+        <button className="white-button" onClick={() => navigate("/")}>
           Back to all
         </button>
-        <button style={{ color: "white", backgroundColor: "deeppink" }}>
-          Save changes
-        </button>
+        <button className="pink-button">Save changes</button>
       </div>
     </div>
   );
