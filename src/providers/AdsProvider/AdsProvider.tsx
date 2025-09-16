@@ -3,16 +3,22 @@ import { AdsContext } from "./AdsContext";
 import quickAds from "../../data/quickAd.json";
 
 export const AdsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [ids, setIds] = useState<number[]>([]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [allQuickAds, setAllQuickAds] = useState(quickAds);
   const selectedQuickAds = useMemo(
-    () => allQuickAds.filter((qA) => ids.includes(qA.id)),
-    [ids, allQuickAds]
+    () => allQuickAds.filter((qA) => selectedIds.includes(qA.id)),
+    [selectedIds, allQuickAds]
   );
 
   return (
     <AdsContext.Provider
-      value={{ ids, setIds, allQuickAds, setAllQuickAds, selectedQuickAds }}
+      value={{
+        selectedIds,
+        allQuickAds,
+        selectedQuickAds,
+        setSelectedIds,
+        setAllQuickAds,
+      }}
     >
       {children}
     </AdsContext.Provider>

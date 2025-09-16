@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAds } from "../providers/AdsProvider/useAds";
 import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getBase64 } from "../api/getBase64";
 import { getImg } from "../api/geminiAPI";
 import { paths } from "../paths";
+import type { Creative } from "../types";
 
 export const EditorPage = () => {
   const { selectedQuickAds } = useAds();
@@ -16,11 +17,6 @@ export const EditorPage = () => {
   const [loading, setLoading] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setEditedBase64("");
-    setErrorMessage("");
-  }, [selectedCreative]);
 
   const onEditCreative = async (prompt: string) => {
     if (!imageRef.current) return;
@@ -37,6 +33,12 @@ export const EditorPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleChangeSelectedCreative = (creative: Creative) => {
+    setSelectedCreative(creative);
+    setEditedBase64("");
+    setErrorMessage("");
   };
 
   if (selectedQuickAds.length === 0) {
@@ -75,7 +77,7 @@ export const EditorPage = () => {
         <SideBar
           ads={selectedQuickAds}
           selectedAd={selectedCreative}
-          setSelectedAd={setSelectedCreative}
+          setSelectedAd={handleChangeSelectedCreative}
         />
         <div
           style={{

@@ -25,9 +25,6 @@ export const PromptEditor = ({
   const { setAllQuickAds } = useAds();
   const [prompt, setPrompt] = useState("");
 
-  useEffect(() => setErrorMessage(""), [prompt, setErrorMessage]);
-  useEffect(() => setPrompt(""), [selectedCreative]);
-
   const handleSave = () => {
     const currentId = selectedCreative.id;
     setAllQuickAds((prev) => {
@@ -44,6 +41,8 @@ export const PromptEditor = ({
     setPrompt(e.target.value);
     setErrorMessage("");
   };
+
+  useEffect(() => setPrompt(""), [selectedCreative]);
 
   return (
     <div

@@ -1,28 +1,30 @@
 import type { Creative } from "../types";
 
-export const CreativeItem = ({
-  creative,
-  ids,
-  setIds,
-}: {
+type Props = {
   creative: Creative;
   ids: number[];
   setIds: React.Dispatch<React.SetStateAction<number[]>>;
-}) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      if (!ids.includes(creative.id)) setIds([...ids, creative.id]);
-    } else {
-      setIds(ids.filter((id) => id !== creative.id));
-    }
+};
+
+export const CreativeItem = ({ creative, ids, setIds }: Props) => {
+  const isCreativeSelected = ids.includes(creative.id);
+
+  const toggleIsCreativeSelected = () => {
+    setIds(
+      isCreativeSelected
+        ? ids.filter((id) => id !== creative.id)
+        : (prev) => [...prev, creative.id]
+    );
   };
   return (
     <div
+      onClick={toggleIsCreativeSelected}
       style={{
         width: "200px",
         height: "200px",
         position: "relative",
         borderRadius: "12px",
+        cursor: "pointer",
       }}
     >
       <img
@@ -44,8 +46,8 @@ export const CreativeItem = ({
           cursor: "pointer",
         }}
         type="checkbox"
-        checked={ids.includes(creative.id)}
-        onChange={handleChange}
+        checked={isCreativeSelected}
+        readOnly
       ></input>
     </div>
   );

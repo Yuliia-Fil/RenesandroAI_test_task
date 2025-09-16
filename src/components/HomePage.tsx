@@ -1,20 +1,17 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreativeItem } from "./CreativeItem";
 import { useAds } from "../providers/AdsProvider/useAds";
-import { useMemo } from "react";
 import { paths } from "../paths";
 
 export const HomePage = () => {
   const navigate = useNavigate();
-  const { ids, setIds, selectedQuickAds, allQuickAds } = useAds();
+  const { selectedIds, setSelectedIds, selectedQuickAds, allQuickAds } =
+    useAds();
   const allIds = useMemo(() => allQuickAds.map((qA) => qA.id), [allQuickAds]);
 
   const handleSelectAll = () => {
-    if (ids.length === allQuickAds.length) {
-      setIds([]);
-    } else {
-      setIds(allIds);
-    }
+    setSelectedIds(selectedIds.length === allQuickAds.length ? [] : allIds);
   };
 
   return (
@@ -39,9 +36,9 @@ export const HomePage = () => {
         >
           {allQuickAds.map((creative) => (
             <CreativeItem
-              ids={ids}
-              setIds={setIds}
               key={creative.id}
+              ids={selectedIds}
+              setIds={setSelectedIds}
               creative={creative}
             />
           ))}
@@ -69,13 +66,15 @@ export const HomePage = () => {
                 type="checkbox"
                 id="selectAll"
                 onChange={handleSelectAll}
-                checked={ids.length === allQuickAds.length}
+                checked={selectedIds.length === allQuickAds.length}
               />
               <label style={{ fontSize: "14px" }} htmlFor="selectAll">
                 Select All
               </label>
             </div>
-            <span style={{ fontSize: "11px" }}>{`${ids.length} selected`}</span>
+            <span
+              style={{ fontSize: "11px" }}
+            >{`${selectedIds.length} selected`}</span>
           </div>
           <button
             className="white-button"

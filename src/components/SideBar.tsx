@@ -2,15 +2,13 @@ import { useNavigate } from "react-router-dom";
 import type { Creative } from "../types";
 import { paths } from "../paths";
 
-export const SideBar = ({
-  ads,
-  selectedAd,
-  setSelectedAd,
-}: {
+type Props = {
   ads: Creative[];
   selectedAd: Creative;
   setSelectedAd: (a: Creative) => void;
-}) => {
+};
+
+export const SideBar = ({ ads, selectedAd, setSelectedAd }: Props) => {
   const navigate = useNavigate();
   return (
     <div
