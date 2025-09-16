@@ -3,6 +3,7 @@ import { useAds } from "../hooks/useAds";
 import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
 import { Loader } from "./Loader";
+import { useNavigate } from "react-router-dom";
 
 export const EditorPage = () => {
   const { selectedQuickAds } = useAds();
@@ -11,11 +12,26 @@ export const EditorPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setEditedBase64("");
     setErrorMessage("");
   }, [selectedCreative]);
+
+  if (selectedQuickAds.length === 0) {
+    return (
+      <div>
+        <h1>Edit your creatives</h1>
+        <h3>
+          No creatives selected, return to Home Page and select some creative
+        </h3>
+        <button className="white-button" onClick={() => navigate("/")}>
+          Back to all
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
