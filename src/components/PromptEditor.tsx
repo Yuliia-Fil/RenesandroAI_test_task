@@ -1,30 +1,27 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Templates } from "./Templates";
 import { TextArea } from "./Textarea";
-import { useEffect, useState, type RefObject } from "react";
 import type { Creative } from "../types";
 import { useAds } from "../hooks/useAds";
+import { paths } from "../paths";
 
 type Props = {
-  imageRef: RefObject<HTMLImageElement | null>;
   editedBase64: string;
-  setEditedBase64: (b: string) => void;
   loading: boolean;
-  setLoading: (l: boolean) => void;
   errorMessage: string;
-  setErrorMessage: (m: string) => void;
   selectedCreative: Creative;
+  onEditCreative: (prompt: string) => void;
+  setErrorMessage: (m: string) => void;
 };
 
 export const PromptEditor = ({
-  imageRef,
   editedBase64,
-  setEditedBase64,
   loading,
-  setLoading,
   errorMessage,
-  setErrorMessage,
   selectedCreative,
+  onEditCreative,
+  setErrorMessage,
 }: Props) => {
   const navigate = useNavigate();
   const { setAllQuickAds } = useAds();
@@ -43,6 +40,11 @@ export const PromptEditor = ({
         return el;
       });
     });
+  };
+
+  const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPrompt(e.target.value);
+    setErrorMessage("");
   };
 
   return (
@@ -66,18 +68,15 @@ export const PromptEditor = ({
         <Templates setPrompt={setPrompt} />
         <TextArea
           prompt={prompt}
-          setPrompt={setPrompt}
-          imageRef={imageRef}
-          setEditedBase64={setEditedBase64}
-          setLoading={setLoading}
-          setErrorMessage={setErrorMessage}
+          handleEditCreative={() => onEditCreative(prompt)}
+          onChange={handlePromptChange}
         />
         {errorMessage && !loading && (
           <span style={{ fontSize: "16px", color: "red" }}>{errorMessage}</span>
         )}
       </div>
       <div style={{ display: "flex", gap: "16px", justifyContent: "end" }}>
-        <button className="white-button" onClick={() => navigate("/")}>
+        <button className="white-button" onClick={() => navigate(paths.HOME)}>
           Back to all
         </button>
         <button

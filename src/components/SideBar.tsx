@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Creative } from "../types";
+import { paths } from "../paths";
 
 export const SideBar = ({
   ads,
@@ -32,7 +33,7 @@ export const SideBar = ({
           top: "-16px",
         }}
         className="white-button"
-        onClick={() => navigate("/")}
+        onClick={() => navigate(paths.HOME)}
       >
         Go back
       </button>

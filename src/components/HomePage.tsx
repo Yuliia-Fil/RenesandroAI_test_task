@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { CreativeItem } from "./CreativeItem";
 import { useAds } from "../hooks/useAds";
 import { useMemo } from "react";
+import { paths } from "../paths";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ export const HomePage = () => {
           <button
             className="white-button"
             disabled={selectedQuickAds.length === 0}
-            onClick={() => navigate("/editor")}
+            onClick={() => navigate(paths.EDITOR)}
           >
             Edit with AI
           </button>

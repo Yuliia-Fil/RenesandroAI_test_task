@@ -4,6 +4,9 @@ import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
 import { Loader } from "./Loader";
 import { useNavigate } from "react-router-dom";
+import { getBase64 } from "../api/getBase64";
+import { getImg } from "../api/geminiAPI";
+import { paths } from "../paths";
 
 export const EditorPage = () => {
   const { selectedQuickAds } = useAds();
@@ -19,6 +22,23 @@ export const EditorPage = () => {
     setErrorMessage("");
   }, [selectedCreative]);
 
+  const onEditCreative = async (prompt: string) => {
+    if (!imageRef.current) return;
+
+    try {
+      setLoading(true);
+      const startBase64 = getBase64(imageRef.current);
+      const base64 = await getImg(startBase64, prompt);
+      setEditedBase64(`data:image/png;base64,${base64}`);
+    } catch {
+      setErrorMessage(
+        "Something went wrong, try again later, probably model overloaded."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (selectedQuickAds.length === 0) {
     return (
       <div>
@@ -26,7 +46,7 @@ export const EditorPage = () => {
         <h3>
           No creatives selected, return to Home Page and select some creative
         </h3>
-        <button className="white-button" onClick={() => navigate("/")}>
+        <button className="white-button" onClick={() => navigate(paths.HOME)}>
           Back to all
         </button>
       </div>
@@ -89,21 +109,19 @@ export const EditorPage = () => {
               src={editedBase64}
               onError={() =>
                 setErrorMessage(
-                  "Something went wrong, try again later or change your prompt"
+                  "Model can't handle your promt, try to chage it."
                 )
               }
             />
           )}
         </div>
         <PromptEditor
-          imageRef={imageRef}
           editedBase64={editedBase64}
-          setEditedBase64={setEditedBase64}
           loading={loading}
-          setLoading={setLoading}
           errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
           selectedCreative={selectedCreative}
+          setErrorMessage={setErrorMessage}
+          onEditCreative={onEditCreative}
         />
       </div>
     </div>

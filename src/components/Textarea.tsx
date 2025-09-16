@@ -1,42 +1,10 @@
-import type { RefObject } from "react";
-import { getImg } from "../api/geminiAPI";
-import { getBase64 } from "../api/getBase64";
-
 type Props = {
   prompt: string;
-  setPrompt: (p: string) => void;
-  imageRef: RefObject<HTMLImageElement | null>;
-  setEditedBase64: (b: string) => void;
-  setLoading: (l: boolean) => void;
-  setErrorMessage: (m: string) => void;
+  handleEditCreative: () => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-export const TextArea = ({
-  prompt,
-  setPrompt,
-  imageRef,
-  setEditedBase64,
-  setLoading,
-  setErrorMessage,
-}: Props) => {
-  const editImage = async () => {
-    if (!imageRef.current) return;
-
-    try {
-      setLoading(true);
-      const startBase64 = getBase64(imageRef.current);
-      const base64 = await getImg(startBase64, prompt);
-      console.log(base64);
-      setEditedBase64(`data:image/png;base64,${base64}`);
-    } catch {
-      setErrorMessage(
-        "Something went wrong, try again later or change your prompt"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
+export const TextArea = ({ prompt, handleEditCreative, onChange }: Props) => {
   return (
     <div
       style={{
@@ -44,13 +12,7 @@ export const TextArea = ({
         position: "relative",
       }}
     >
-      <textarea
-        value={prompt}
-        onChange={(e) => {
-          setPrompt(e.target.value);
-          setErrorMessage("");
-        }}
-      />
+      <textarea value={prompt} onChange={onChange} />
       <button
         className="pink-button"
         disabled={!prompt.trim()}
@@ -63,7 +25,7 @@ export const TextArea = ({
           height: "32px",
           padding: 0,
         }}
-        onClick={editImage}
+        onClick={handleEditCreative}
       >
         <svg
           width="100%"

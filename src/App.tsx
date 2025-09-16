@@ -3,13 +3,14 @@ import "./App.css";
 import { EditorPage } from "./components/EditorPage";
 import { HomePage } from "./components/HomePage";
 import { AdsProvider } from "./components/AdsContextProvider";
+import { paths } from "./paths";
 
 export const App = () => {
   return (
     <AdsProvider>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/editor" element={<EditorPage />} />
+        <Route path={paths.HOME} element={<HomePage />} />
+        <Route path={paths.EDITOR} element={<EditorPage />} />
       </Routes>
     </AdsProvider>
   );
