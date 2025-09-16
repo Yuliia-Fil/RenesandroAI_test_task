@@ -2,13 +2,12 @@ import { useRef, useState } from "react";
 import { useAds } from "../providers/AdsProvider/useAds";
 import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
-import { Loader } from "./Loader";
 import { useNavigate } from "react-router-dom";
 import { getBase64 } from "../api/getBase64";
 import { getImg } from "../api/geminiAPI";
 import { paths } from "../paths";
 import type { Creative } from "../types";
-import { getCreativeSrc } from "../utils/getCreativeSrc";
+import { ImagePreview } from "./ImagePreview";
 
 export const EditorPage = () => {
   const { allQuickAds, selectedIds } = useAds();
@@ -29,6 +28,12 @@ export const EditorPage = () => {
       setLoading(true);
       const startBase64 = getBase64(imageRef.current);
       const editedBase64 = await getImg(startBase64, prompt);
+
+      if (editedBase64.length <= 100) {
+        // Model can return invalid base64 if invalid prompt.
+        setErrorMessage("Model can't handle your promt, try to change it.");
+        return;
+      }
 
       setSelectedCreative((prevCreative) => ({
         ...prevCreative,
@@ -96,30 +101,11 @@ export const EditorPage = () => {
           selectedAd={selectedCreative}
           setSelectedAd={handleChangeSelectedCreative}
         />
-        <div
-          style={{
-            flex: 2,
-            display: "flex",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
-          <img
-            ref={imageRef}
-            style={{
-              width: "100%",
-              aspectRatio: 1,
-              objectFit: "contain",
-            }}
-            src={getCreativeSrc(selectedCreative)}
-            onError={() =>
-              setErrorMessage(
-                "Model can't handle your promt, try to change it."
-              )
-            }
-          />
-          <Loader loading={loading} />
-        </div>
+        <ImagePreview
+          imageRef={imageRef}
+          selectedCreative={selectedCreative}
+          loading={loading}
+        />
         <PromptEditor
           errorMessage={errorMessage}
           selectedCreative={selectedCreative}
