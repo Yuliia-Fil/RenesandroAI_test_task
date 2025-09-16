@@ -17,7 +17,7 @@ export const Templates = ({
             fontSize: "11px",
             boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.2)",
           }}
-          onClick={() => setPrompt(t.slice(0, -2))}
+          onClick={() => setPrompt(t)}
         >
           {t}
         </button>

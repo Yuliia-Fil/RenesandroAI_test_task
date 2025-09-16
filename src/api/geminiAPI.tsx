@@ -1,43 +1,55 @@
-import { GoogleGenAI } from "@google/genai";
-import type { RefObject } from "react";
+import { GoogleGenAI, Modality } from "@google/genai";
 
-import { imgBase64 } from "./imgTest";
-
-const ai = new GoogleGenAI({
-  apiKey: "secret",
-});
-
-export const generateCreative = async (
-  imageRef: RefObject<HTMLImageElement | null>,
-  promptText: string
-) => {
-  console.log(imageRef);
-
-  if (!imageRef.current) {
-    return;
-  }
-
-  //   const imgBase64 =
-  //     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/9VZ2+YAAAAASUVORK5CYII=";
-
-  //   const prompt = [
-  //     { text: "Make yellow background" },
-  //     {
-  //       inlineData: {
-  //         mimeType: "image/png",
-  //         data: imgBase64,
-  //       },
-  //     },
-  //   ];
-
-  const prompt =
-    "A minimalist composition featuring a single, delicate red maple leaf. 20 x 20 pixels";
-
-  //   Виклик моделі
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash-image-preview",
-    contents: prompt,
+export const getImg = async (
+  base64: string,
+  prompt: string
+): Promise<string> => {
+  const ai = new GoogleGenAI({
+    apiKey: "AIzaSyAB1RWUc0Da9ppoo-tpirAK5Z49UsUkD2c",
+    // apiKey: "AIzaSyBku-NkI57mYUQ_hKiFhDDzSwGQrOLnY68",
   });
 
-  console.log(response);
+  const mimeType = "image/png";
+
+  const contents = [
+    {
+      parts: [
+        {
+          inlineData: {
+            mimeType,
+            data: base64,
+          },
+        },
+        {
+          text: prompt,
+        },
+      ],
+    },
+  ];
+
+  const response = await ai.models.generateContentStream({
+    model: "gemini-2.0-flash-preview-image-generation",
+    config: {
+      responseModalities: [Modality.IMAGE, Modality.TEXT],
+    },
+    contents,
+  });
+
+  for await (const chunk of response) {
+    if (
+      chunk.candidates &&
+      chunk.candidates[0].content &&
+      chunk.candidates[0].content.parts
+    ) {
+      for (const part of chunk.candidates[0].content.parts) {
+        if (part.inlineData) {
+          console.log(part.inlineData.data);
+          return part.inlineData.data ?? "no data";
+        } else if (part.text) {
+          return part.text;
+        }
+      }
+    }
+  }
+  return "failed";
 };

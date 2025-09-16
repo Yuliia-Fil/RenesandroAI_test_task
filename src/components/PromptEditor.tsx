@@ -3,11 +3,19 @@ import { Templates } from "./Templates";
 import { TextArea } from "./Textarea";
 import { useState, type RefObject } from "react";
 
+type Props = {
+  imageRef: RefObject<HTMLImageElement | null>;
+  editedBase64: string;
+  setEditedBase64: (b: string) => void;
+  setLoading: (l: boolean) => void;
+};
+
 export const PromptEditor = ({
   imageRef,
-}: {
-  imageRef: RefObject<HTMLImageElement | null>;
-}) => {
+  editedBase64,
+  setEditedBase64,
+  setLoading,
+}: Props) => {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState("");
 
@@ -30,13 +38,21 @@ export const PromptEditor = ({
       >
         <h2 style={{ margin: 0 }}>Change with prompt</h2>
         <Templates setPrompt={setPrompt} />
-        <TextArea prompt={prompt} setPrompt={setPrompt} imageRef={imageRef} />
+        <TextArea
+          prompt={prompt}
+          setPrompt={setPrompt}
+          imageRef={imageRef}
+          setEditedBase64={setEditedBase64}
+          setLoading={setLoading}
+        />
       </div>
       <div style={{ display: "flex", gap: "16px", justifyContent: "end" }}>
         <button className="white-button" onClick={() => navigate("/")}>
           Back to all
         </button>
-        <button className="pink-button">Save changes</button>
+        <button disabled={!editedBase64} className="pink-button">
+          Save changes
+        </button>
       </div>
     </div>
   );
