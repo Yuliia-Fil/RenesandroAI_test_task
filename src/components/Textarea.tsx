@@ -8,6 +8,7 @@ type Props = {
   imageRef: RefObject<HTMLImageElement | null>;
   setEditedBase64: (b: string) => void;
   setLoading: (l: boolean) => void;
+  setErrorMessage: (m: string) => void;
 };
 
 export const TextArea = ({
@@ -16,6 +17,7 @@ export const TextArea = ({
   imageRef,
   setEditedBase64,
   setLoading,
+  setErrorMessage,
 }: Props) => {
   const editImage = async () => {
     if (!imageRef.current) return;
@@ -24,9 +26,12 @@ export const TextArea = ({
       setLoading(true);
       const startBase64 = getBase64(imageRef.current);
       const base64 = await getImg(startBase64, prompt);
+      console.log(base64);
       setEditedBase64(`data:image/png;base64,${base64}`);
-    } catch (error) {
-      console.error(error);
+    } catch {
+      setErrorMessage(
+        "Something went wrong, try again later or change your prompt"
+      );
     } finally {
       setLoading(false);
     }

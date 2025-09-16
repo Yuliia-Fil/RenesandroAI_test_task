@@ -7,14 +7,20 @@ type Props = {
   imageRef: RefObject<HTMLImageElement | null>;
   editedBase64: string;
   setEditedBase64: (b: string) => void;
+  loading: boolean;
   setLoading: (l: boolean) => void;
+  errorMessage: string;
+  setErrorMessage: (m: string) => void;
 };
 
 export const PromptEditor = ({
   imageRef,
   editedBase64,
   setEditedBase64,
+  loading,
   setLoading,
+  errorMessage,
+  setErrorMessage,
 }: Props) => {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState("");
@@ -44,7 +50,11 @@ export const PromptEditor = ({
           imageRef={imageRef}
           setEditedBase64={setEditedBase64}
           setLoading={setLoading}
+          setErrorMessage={setErrorMessage}
         />
+        {errorMessage && !loading && (
+          <span style={{ fontSize: "16px", color: "red" }}>{errorMessage}</span>
+        )}
       </div>
       <div style={{ display: "flex", gap: "16px", justifyContent: "end" }}>
         <button className="white-button" onClick={() => navigate("/")}>

@@ -8,11 +8,13 @@ export const EditorPage = () => {
   const { selectedQuickAds } = useIds();
   const [selectedCreative, setSelectedCreative] = useState(selectedQuickAds[0]);
   const [editedBase64, setEditedBase64] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     setEditedBase64("");
+    setErrorMessage("");
   }, [selectedCreative]);
 
   return (
@@ -57,7 +59,7 @@ export const EditorPage = () => {
             src={selectedCreative.img}
           />
           <Loader loading={loading} />
-          {editedBase64 && (
+          {editedBase64 && !errorMessage && (
             <img
               style={{
                 width: "100%",
@@ -69,6 +71,11 @@ export const EditorPage = () => {
                 transform: "translate(-50%, -50%)",
               }}
               src={editedBase64}
+              onError={() =>
+                setErrorMessage(
+                  "Something went wrong, try again later or change your prompt"
+                )
+              }
             />
           )}
         </div>
@@ -76,7 +83,10 @@ export const EditorPage = () => {
           imageRef={imageRef}
           editedBase64={editedBase64}
           setEditedBase64={setEditedBase64}
+          loading={loading}
           setLoading={setLoading}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
         />
       </div>
     </div>
