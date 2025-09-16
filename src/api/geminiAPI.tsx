@@ -4,9 +4,7 @@ import type { RefObject } from "react";
 import { imgBase64 } from "./imgTest";
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyCsFdsdDpuswcg-bscUIEflvZjeUyLr0wA", // Jeka
-  //   apiKey: "AIzaSyAOoVVMQFiCO0gPnIHkk-J5eHAl3Pqu0LY", 2
-  // apiKey: "AIzaSyAiZAxeBk1DlXuznzoJLVks9xMmNRODNrM", 1
+  apiKey: "secret",
 });
 
 export const generateCreative = async (
