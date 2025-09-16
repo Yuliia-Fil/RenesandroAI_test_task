@@ -5,7 +5,8 @@ export const getImg = async (
   prompt: string
 ): Promise<string> => {
   const ai = new GoogleGenAI({
-    apiKey: "AIzaSyAB1RWUc0Da9ppoo-tpirAK5Z49UsUkD2c",
+    apiKey: "AIzaSyAOoVVMQFiCO0gPnIHkk-J5eHAl3Pqu0LY",
+    // apiKey: "AIzaSyAB1RWUc0Da9ppoo-tpirAK5Z49UsUkD2c",
     // apiKey: "AIzaSyBku-NkI57mYUQ_hKiFhDDzSwGQrOLnY68",
   });
 
@@ -43,7 +44,6 @@ export const getImg = async (
     ) {
       for (const part of chunk.candidates[0].content.parts) {
         if (part.inlineData) {
-          console.log(part.inlineData.data);
           return part.inlineData.data ?? "no data";
         } else if (part.text) {
           return part.text;

@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { CreativeItem } from "./CreativeItem";
-import { useIds } from "../hooks/useIds";
+import { useAds } from "../hooks/useAds";
 import { useMemo } from "react";
 
 export const HomePage = () => {
   const navigate = useNavigate();
-  const { ids, setIds, selectedQuickAds, quickAds } = useIds();
-  const allIds = useMemo(() => quickAds.map((qA) => qA.id), [quickAds]);
+  const { ids, setIds, selectedQuickAds, allQuickAds } = useAds();
+  const allIds = useMemo(() => allQuickAds.map((qA) => qA.id), [allQuickAds]);
 
   const handleSelectAll = () => {
-    if (ids.length === quickAds.length) {
+    if (ids.length === allQuickAds.length) {
       setIds([]);
     } else {
       setIds(allIds);
@@ -36,7 +36,7 @@ export const HomePage = () => {
             gap: "16px",
           }}
         >
-          {quickAds.map((creative) => (
+          {allQuickAds.map((creative) => (
             <CreativeItem
               ids={ids}
               setIds={setIds}
@@ -60,7 +60,7 @@ export const HomePage = () => {
             <span style={{ fontSize: "14px" }}>quick_ad</span>
             <span
               style={{ fontSize: "11px" }}
-            >{`${quickAds.length} results`}</span>
+            >{`${allQuickAds.length} results`}</span>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -68,7 +68,7 @@ export const HomePage = () => {
                 type="checkbox"
                 id="selectAll"
                 onChange={handleSelectAll}
-                checked={ids.length === quickAds.length}
+                checked={ids.length === allQuickAds.length}
               />
               <label style={{ fontSize: "14px" }} htmlFor="selectAll">
                 Select All

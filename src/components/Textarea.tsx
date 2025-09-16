@@ -44,7 +44,13 @@ export const TextArea = ({
         position: "relative",
       }}
     >
-      <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} />
+      <textarea
+        value={prompt}
+        onChange={(e) => {
+          setPrompt(e.target.value);
+          setErrorMessage("");
+        }}
+      />
       <button
         className="pink-button"
         disabled={!prompt.trim()}

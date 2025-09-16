@@ -41,6 +41,7 @@ export const CreativeItem = ({
           right: "5%",
           width: "10%",
           height: "15%",
+          cursor: "pointer",
         }}
         type="checkbox"
         checked={ids.includes(creative.id)}

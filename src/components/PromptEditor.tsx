@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Templates } from "./Templates";
 import { TextArea } from "./Textarea";
-import { useState, type RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
+import type { Creative } from "../types";
+import { useAds } from "../hooks/useAds";
 
 type Props = {
   imageRef: RefObject<HTMLImageElement | null>;
@@ -11,6 +13,7 @@ type Props = {
   setLoading: (l: boolean) => void;
   errorMessage: string;
   setErrorMessage: (m: string) => void;
+  selectedCreative: Creative;
 };
 
 export const PromptEditor = ({
@@ -21,9 +24,26 @@ export const PromptEditor = ({
   setLoading,
   errorMessage,
   setErrorMessage,
+  selectedCreative,
 }: Props) => {
   const navigate = useNavigate();
+  const { setAllQuickAds } = useAds();
   const [prompt, setPrompt] = useState("");
+
+  useEffect(() => setErrorMessage(""), [prompt, setErrorMessage]);
+  useEffect(() => setPrompt(""), [selectedCreative]);
+
+  const handleSave = () => {
+    const currentId = selectedCreative.id;
+    setAllQuickAds((prev) => {
+      return prev.map((el) => {
+        if (el.id === currentId) {
+          return { ...el, img: editedBase64 };
+        }
+        return el;
+      });
+    });
+  };
 
   return (
     <div
@@ -60,7 +80,11 @@ export const PromptEditor = ({
         <button className="white-button" onClick={() => navigate("/")}>
           Back to all
         </button>
-        <button disabled={!editedBase64} className="pink-button">
+        <button
+          disabled={!editedBase64}
+          onClick={handleSave}
+          className="pink-button"
+        >
           Save changes
         </button>
       </div>

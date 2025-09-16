@@ -1,16 +1,18 @@
 import { createContext } from "react";
 import type { Creative } from "../types";
 
-type IdsContextType = {
+type AdsContextType = {
   ids: number[];
   setIds: React.Dispatch<React.SetStateAction<number[]>>;
-  quickAds: Creative[];
+  allQuickAds: Creative[];
+  setAllQuickAds: React.Dispatch<React.SetStateAction<Creative[]>>;
   selectedQuickAds: Creative[];
 };
 
-export const IdsContext = createContext<IdsContextType>({
+export const AdsContext = createContext<AdsContextType>({
   ids: [],
   setIds: () => {},
-  quickAds: [],
+  allQuickAds: [],
+  setAllQuickAds: () => {},
   selectedQuickAds: [],
 });

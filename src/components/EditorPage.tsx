@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useIds } from "../hooks/useIds";
+import { useAds } from "../hooks/useAds";
 import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
 import { Loader } from "./Loader";
 
 export const EditorPage = () => {
-  const { selectedQuickAds } = useIds();
+  const { selectedQuickAds } = useAds();
   const [selectedCreative, setSelectedCreative] = useState(selectedQuickAds[0]);
   const [editedBase64, setEditedBase64] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -87,6 +87,7 @@ export const EditorPage = () => {
           setLoading={setLoading}
           errorMessage={errorMessage}
           setErrorMessage={setErrorMessage}
+          selectedCreative={selectedCreative}
         />
       </div>
     </div>
