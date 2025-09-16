@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { Creative } from "../types";
 import { paths } from "../paths";
+import { getCreativeSrc } from "../utils/getCreativeSrc";
 
 type Props = {
   ads: Creative[];
@@ -58,7 +59,7 @@ export const SideBar = ({ ads, selectedAd, setSelectedAd }: Props) => {
                 borderRadius: "12px",
                 border: selectedAd.id === ad.id ? "2px solid deeppink" : "none",
               }}
-              src={ad.img}
+              src={getCreativeSrc(ad)}
             />
           </div>
         ))}

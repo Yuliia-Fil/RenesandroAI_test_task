@@ -1,10 +1,10 @@
 import templates from "../data/templates.json";
 
-export const Templates = ({
-  setPrompt,
-}: {
+type Props = {
   setPrompt: (p: string) => void;
-}) => {
+};
+
+export const Templates = ({ setPrompt }: Props) => {
   return (
     <div style={{ display: "flex", gap: "8px" }}>
       {templates.map((t) => (

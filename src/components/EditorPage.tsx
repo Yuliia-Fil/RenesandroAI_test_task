@@ -8,11 +8,15 @@ import { getBase64 } from "../api/getBase64";
 import { getImg } from "../api/geminiAPI";
 import { paths } from "../paths";
 import type { Creative } from "../types";
+import { getCreativeSrc } from "../utils/getCreativeSrc";
 
 export const EditorPage = () => {
-  const { selectedQuickAds } = useAds();
+  const { allQuickAds, selectedIds } = useAds();
+
+  const [selectedQuickAds, setSelectedQuickAds] = useState<Creative[]>(() =>
+    allQuickAds.filter((qA) => selectedIds.includes(qA.id))
+  );
   const [selectedCreative, setSelectedCreative] = useState(selectedQuickAds[0]);
-  const [editedBase64, setEditedBase64] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -24,8 +28,22 @@ export const EditorPage = () => {
     try {
       setLoading(true);
       const startBase64 = getBase64(imageRef.current);
-      const base64 = await getImg(startBase64, prompt);
-      setEditedBase64(`data:image/png;base64,${base64}`);
+      const editedBase64 = await getImg(startBase64, prompt);
+
+      setSelectedCreative((prevCreative) => ({
+        ...prevCreative,
+        editedBase64,
+      }));
+      setSelectedQuickAds((prev) =>
+        prev.map((creative) => {
+          if (creative.id !== selectedCreative.id) return creative;
+
+          return {
+            ...creative,
+            editedBase64,
+          };
+        })
+      );
     } catch {
       setErrorMessage(
         "Something went wrong, try again later, probably model overloaded."
@@ -37,7 +55,6 @@ export const EditorPage = () => {
 
   const handleChangeSelectedCreative = (creative: Creative) => {
     setSelectedCreative(creative);
-    setEditedBase64("");
     setErrorMessage("");
   };
 
@@ -94,33 +111,19 @@ export const EditorPage = () => {
               aspectRatio: 1,
               objectFit: "contain",
             }}
-            src={selectedCreative.img}
+            src={getCreativeSrc(selectedCreative)}
+            onError={() =>
+              setErrorMessage(
+                "Model can't handle your promt, try to change it."
+              )
+            }
           />
           <Loader loading={loading} />
-          {editedBase64 && !errorMessage && (
-            <img
-              style={{
-                width: "100%",
-                aspectRatio: 1,
-                objectFit: "cover",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-              src={editedBase64}
-              onError={() =>
-                setErrorMessage(
-                  "Model can't handle your promt, try to chage it."
-                )
-              }
-            />
-          )}
         </div>
         <PromptEditor
-          editedBase64={editedBase64}
           errorMessage={errorMessage}
           selectedCreative={selectedCreative}
+          selectedQuickAds={selectedQuickAds}
           setErrorMessage={setErrorMessage}
           onEditCreative={onEditCreative}
         />

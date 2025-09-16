@@ -1,4 +1,5 @@
 import type { Creative } from "../types";
+import { getCreativeSrc } from "../utils/getCreativeSrc";
 
 type Props = {
   creative: Creative;
@@ -34,7 +35,7 @@ export const CreativeItem = ({ creative, ids, setIds }: Props) => {
           objectFit: "contain",
           borderRadius: "12px",
         }}
-        src={creative.img}
+        src={getCreativeSrc(creative)}
       />
       <input
         style={{

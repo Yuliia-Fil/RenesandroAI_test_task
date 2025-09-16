@@ -7,34 +7,31 @@ import { useAds } from "../providers/AdsProvider/useAds";
 import { paths } from "../paths";
 
 type Props = {
-  editedBase64: string;
   errorMessage: string;
   selectedCreative: Creative;
+  selectedQuickAds: Creative[];
   onEditCreative: (prompt: string) => void;
   setErrorMessage: (m: string) => void;
 };
 
 export const PromptEditor = ({
-  editedBase64,
   errorMessage,
   selectedCreative,
+  selectedQuickAds,
   onEditCreative,
   setErrorMessage,
 }: Props) => {
   const navigate = useNavigate();
-  const { setAllQuickAds } = useAds();
+  const { allQuickAds, setAllQuickAds } = useAds();
   const [prompt, setPrompt] = useState("");
 
   const handleSave = () => {
-    const currentId = selectedCreative.id;
-    setAllQuickAds((prev) => {
-      return prev.map((el) => {
-        if (el.id === currentId) {
-          return { ...el, img: editedBase64 };
-        }
-        return el;
-      });
+    const newQuickAds = allQuickAds.map((qA) => {
+      const editedEl = selectedQuickAds.find((el) => el.id === qA.id);
+      return editedEl ? editedEl : qA;
     });
+    setAllQuickAds(newQuickAds);
+    alert("Changes saved!");
   };
 
   const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -76,11 +73,7 @@ export const PromptEditor = ({
         <button className="white-button" onClick={() => navigate(paths.HOME)}>
           Back to all
         </button>
-        <button
-          disabled={!editedBase64}
-          onClick={handleSave}
-          className="pink-button"
-        >
+        <button onClick={handleSave} className="pink-button">
           Save changes
         </button>
       </div>

@@ -6,8 +6,7 @@ import { paths } from "../paths";
 
 export const HomePage = () => {
   const navigate = useNavigate();
-  const { selectedIds, setSelectedIds, selectedQuickAds, allQuickAds } =
-    useAds();
+  const { selectedIds, setSelectedIds, allQuickAds } = useAds();
   const allIds = useMemo(() => allQuickAds.map((qA) => qA.id), [allQuickAds]);
 
   const handleSelectAll = () => {
@@ -78,7 +77,7 @@ export const HomePage = () => {
           </div>
           <button
             className="white-button"
-            disabled={selectedQuickAds.length === 0}
+            disabled={selectedIds.length === 0}
             onClick={() => navigate(paths.EDITOR)}
           >
             Edit with AI
