@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { AdsContext } from "../context/AdsContext";
-import quickAds from "../data/quickAd.json";
+import { AdsContext } from "./AdsContext";
+import quickAds from "../../data/quickAd.json";
 
 export const AdsProvider = ({ children }: { children: React.ReactNode }) => {
   const [ids, setIds] = useState<number[]>([]);

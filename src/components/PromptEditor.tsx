@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Templates } from "./Templates";
 import { TextArea } from "./Textarea";
 import type { Creative } from "../types";
-import { useAds } from "../hooks/useAds";
+import { useAds } from "../providers/AdsProvider/useAds";
 import { paths } from "../paths";
 
 type Props = {
   editedBase64: string;
-  loading: boolean;
   errorMessage: string;
   selectedCreative: Creative;
   onEditCreative: (prompt: string) => void;
@@ -17,7 +16,6 @@ type Props = {
 
 export const PromptEditor = ({
   editedBase64,
-  loading,
   errorMessage,
   selectedCreative,
   onEditCreative,
@@ -71,7 +69,7 @@ export const PromptEditor = ({
           handleEditCreative={() => onEditCreative(prompt)}
           onChange={handlePromptChange}
         />
-        {errorMessage && !loading && (
+        {errorMessage && (
           <span style={{ fontSize: "16px", color: "red" }}>{errorMessage}</span>
         )}
       </div>

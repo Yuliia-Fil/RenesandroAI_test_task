@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { Creative } from "../types";
+import type { Creative } from "../../types";
 
 type AdsContextType = {
   ids: number[];

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CreativeItem } from "./CreativeItem";
-import { useAds } from "../hooks/useAds";
+import { useAds } from "../providers/AdsProvider/useAds";
 import { useMemo } from "react";
 import { paths } from "../paths";
 

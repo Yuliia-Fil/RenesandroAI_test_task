@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useAds } from "../hooks/useAds";
+import { useAds } from "../providers/AdsProvider/useAds";
 import { PromptEditor } from "./PromptEditor";
 import { SideBar } from "./SideBar";
 import { Loader } from "./Loader";
@@ -117,7 +117,6 @@ export const EditorPage = () => {
         </div>
         <PromptEditor
           editedBase64={editedBase64}
-          loading={loading}
           errorMessage={errorMessage}
           selectedCreative={selectedCreative}
           setErrorMessage={setErrorMessage}
