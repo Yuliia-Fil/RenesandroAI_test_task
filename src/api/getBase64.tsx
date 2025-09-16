@@ -1,5 +1,4 @@
-export const getBase64 = (currentRef: HTMLImageElement) => {
-  const img = currentRef;
+export const getBase64 = (img: HTMLImageElement) => {
   const canvas = document.createElement("canvas");
 
   const size = 280;

@@ -5,9 +5,7 @@ export const getImg = async (
   prompt: string
 ): Promise<string> => {
   const ai = new GoogleGenAI({
-    apiKey: "AIzaSyAOoVVMQFiCO0gPnIHkk-J5eHAl3Pqu0LY",
-    // apiKey: "AIzaSyAB1RWUc0Da9ppoo-tpirAK5Z49UsUkD2c",
-    // apiKey: "AIzaSyBku-NkI57mYUQ_hKiFhDDzSwGQrOLnY68",
+    apiKey: import.meta.env.VITE_GEMINI_API_KEY,
   });
 
   const mimeType = "image/png";

@@ -26,7 +26,9 @@ export const EditorPage = () => {
 
     try {
       setLoading(true);
-      const startBase64 = getBase64(imageRef.current);
+      const startBase64 = selectedCreative.editedBase64
+        ? selectedCreative.editedBase64
+        : getBase64(imageRef.current);
       const editedBase64 = await getImg(startBase64, prompt);
 
       if (editedBase64.length <= 100) {

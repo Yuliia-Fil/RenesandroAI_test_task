@@ -26,6 +26,12 @@ export const PromptEditor = ({
   const [prompt, setPrompt] = useState("");
 
   const handleSave = () => {
+    const confirmChanges = confirm(
+      "Do you really want to apply changes to all selected ads?"
+    );
+
+    if (!confirmChanges) return;
+
     const newQuickAds = allQuickAds.map((qA) => {
       const editedEl = selectedQuickAds.find((el) => el.id === qA.id);
       return editedEl ? editedEl : qA;
