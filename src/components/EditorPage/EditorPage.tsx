@@ -94,7 +94,10 @@ export const EditorPage = () => {
           with model gemini-2.0-flash-preview-image-generation because model 2.5
           doesn’t have sufficient free quotas for generation. I decided to focus
           on demonstrating the functionality of the test task, so some of the
-          generated images may be of lower quality.
+          generated images may be of lower quality.<br></br>
+          <strong>Pay attention!</strong> This model limits: 10 RPM, 200.000
+          TPM, 100 RPD. The model will be deprecated on September 26, 2025, so
+          requests will no longer work after this date.
         </em>
       </h6>
       <div className={styles.content}>

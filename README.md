@@ -1,69 +1,76 @@
-# React + TypeScript + Vite
+# 🤖 RenesandroAI test task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Test task with 2 pages that allows the user to choose a creative from a static list and modify it with their own prompt using the Gemini API. Changes can be saved or rejected, and generation can be done again.
 
-Currently, two official plugins are available:
+Model gemini-2.0-flash-preview-image-generation is used because it provides enough free generation quotas for this test task.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Model limits: 10 RPM, 200.000 TPM, 100 RPD.
 
-## Expanding the ESLint configuration
+# ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Gemini API for image generation from image and prompt
+- Desktop version of design
+- Dynamic routing with React Router
+- Custom products slider
+- Loading spinners and skeletons for better UX
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 🔗 Live Demo
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+[DEMO LINK](https://renesandroaitesttask.vercel.app/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Task reference
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+[Test Task](https://renesandro.notion.site/TZ-Front-26f76d62747280f0ac3ec57daad4f8c6)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# 🛠️ Technologies Used
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React – UI built with functional components and hooks.
+- TypeScript – Ensures type safety across the app.
+- React Router – Handles page navigation and routing.
+- Context API – Manages global states.
+- SCSS Modules – Styles are scoped and modular.
+- React Spinners – Displays loading indicators during data fetch.
+- Vite – Used for fast development and optimized builds.
+- Google Gemini API – AI-powered image generation and editing
+
+# 🚀 Getting Started
+
+Include these instructions on how to set up the project locally:
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Yuliia-Fil/RenesandroAI_test_task.git
+   cd RenesandroAI_test_task
+
+   ```
+
+2. **Install dependencies:**
+
+   Using `npm`
+
+   ```bash
+   npm install
+
+   ```
+
+   Using `yarn`
+
+   ```bash
+   yarn install
+   ```
+
+3. **Run the project locally:**
+
+   Using `npm`
+
+   ```bash
+   npm run dev
+
+   ```
+
+   Using `yarn`
+
+   ```bash
+   yarn run dev
+   ```
