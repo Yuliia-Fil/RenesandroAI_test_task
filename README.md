@@ -1,6 +1,6 @@
 # 🤖 RenesandroAI test task
 
-Test task with 2 pages that allows the user to choose a creative from a static list and modify it with their own prompt using the Gemini API. Changes can be saved or rejected, and generation can be done again.
+Test task with 2 pages that allows the users to choose a creative from a static list and modify it with their own prompt using the Gemini API. Changes can be saved or rejected, and generation can be done again.
 
 Model gemini-2.0-flash-preview-image-generation is used because it provides enough free generation quotas for this test task.
 
@@ -11,7 +11,6 @@ Model limits: 10 RPM, 200.000 TPM, 100 RPD.
 - Gemini API for image generation from image and prompt
 - Desktop version of design
 - Dynamic routing with React Router
-- Custom products slider
 - Loading spinners and skeletons for better UX
 
 # 🔗 Live Demo
