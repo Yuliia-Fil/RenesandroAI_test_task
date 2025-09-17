@@ -11,7 +11,6 @@ export const AdsProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         selectedIds,
         allQuickAds,
-        // selectedQuickAds,
         setSelectedIds,
         setAllQuickAds,
       }}
