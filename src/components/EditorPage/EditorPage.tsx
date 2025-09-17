@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
-import { useAds } from "../providers/AdsProvider/useAds";
-import { PromptEditor } from "./PromptEditor";
-import { SideBar } from "./SideBar";
+import { useAds } from "../../providers/AdsProvider/useAds";
 import { useNavigate } from "react-router-dom";
-import { getBase64 } from "../api/getBase64";
-import { getImg } from "../api/geminiAPI";
-import { paths } from "../paths";
-import type { Creative } from "../types";
-import { ImagePreview } from "./ImagePreview";
+import { getBase64 } from "../../api/getBase64";
+import { getImg } from "../../api/geminiAPI";
+import { paths } from "../../paths";
+import type { Creative } from "../../types";
+import styles from "./EditorPage.module.scss";
+import { ImagePreview } from "../ImagePreview";
+import { SideBar } from "../SideBar";
+import { PromptEditor } from "../PromptEditor";
 
 export const EditorPage = () => {
   const { allQuickAds, selectedIds } = useAds();
@@ -32,7 +33,7 @@ export const EditorPage = () => {
       const editedBase64 = await getImg(startBase64, prompt);
 
       if (editedBase64.length <= 100) {
-        // Model can return invalid base64 if invalid prompt.
+        // Model can return invalid base64 if prompt is invalid.
         setErrorMessage("Model can't handle your promt, try to change it.");
         return;
       }
@@ -82,22 +83,21 @@ export const EditorPage = () => {
   return (
     <div
       style={{
-        height: "calc(100vh-80px)",
-        marginBottom: "80px",
+        height: "100vh",
         pointerEvents: loading ? "none" : "unset",
       }}
     >
       <h1>Edit your creatives</h1>
-      <div
-        style={{
-          display: "flex",
-          gap: "16px",
-          padding: "16px",
-          height: "calc(100vh - 205px)",
-          backgroundColor: "lightgray",
-          borderRadius: "12px",
-        }}
-      >
+      <h6>
+        <em>
+          For image generation I replaced model gemini-2.5-flash-image-preview
+          with model gemini-2.0-flash-preview-image-generation because model 2.5
+          doesn’t have sufficient free quotas for generation. I decided to focus
+          on demonstrating the functionality of the test task, so some of the
+          generated images may be of lower quality.
+        </em>
+      </h6>
+      <div className={styles.content}>
         <SideBar
           ads={selectedQuickAds}
           selectedAd={selectedCreative}

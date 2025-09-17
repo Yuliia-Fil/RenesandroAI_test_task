@@ -1,0 +1,66 @@
+.white-button {
+  background-color: white;
+  color: deeppink;
+  border: 1px solid deeppink;
+
+  &:hover {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+    cursor: not-allowed;
+  }
+}
+
+.pink-button {
+  color: white;
+  background-color: deeppink;
+  border: 1px solid deeppink;
+
+  &:hover {
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  &:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+    cursor: not-allowed;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: opacity 0.5s;
+}
+
+.image.hidden {
+  opacity: 0;
+}
+
+.image.visible {
+  opacity: 1;
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #e2e2e2 25%, #f0f0f0 50%, #e2e2e2 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

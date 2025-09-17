@@ -1,0 +1,60 @@
+.homePage {
+  margin-bottom: 80px;
+}
+
+.content {
+  display: flex;
+  gap: 16px;
+  background-color: lightgray;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.adsContainer {
+  display: flex;
+  flex: 4;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.controlsContainer {
+  flex: 1;
+  border-radius: 12px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+.results {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controlName {
+  font-size: 14px;
+}
+
+.controlValue {
+  font-size: 11px;
+}
+
+.selected {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selectedItem {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.checkbox {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}

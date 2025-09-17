@@ -1,30 +1,22 @@
+import styles from "./Textarea.module.scss";
+
 type Props = {
   prompt: string;
   handleEditCreative: () => void;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (value: string) => void;
 };
 
 export const TextArea = ({ prompt, handleEditCreative, onChange }: Props) => {
   return (
-    <div
-      style={{
-        height: "35%",
-        position: "relative",
-      }}
-    >
-      <textarea value={prompt} onChange={onChange} />
+    <div className={styles.container}>
+      <textarea
+        className={styles.textarea}
+        value={prompt}
+        onChange={(e) => onChange(e.target.value)}
+      />
       <button
-        className="pink-button"
+        className={`pink-button ${styles.editButton}`}
         disabled={!prompt.trim()}
-        style={{
-          position: "absolute",
-          bottom: "5%",
-          right: "3%",
-          borderRadius: "50%",
-          width: "32px",
-          height: "32px",
-          padding: 0,
-        }}
         onClick={handleEditCreative}
       >
         <svg

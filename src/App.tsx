@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { EditorPage } from "./components/EditorPage";
 import { HomePage } from "./components/HomePage";
 import { AdsProvider } from "./providers/AdsProvider/AdsProvider";
 import { paths } from "./paths";
+import { EditorPage } from "./components/EditorPage";
 
 export const App = () => {
   return (

@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { CreativeItem } from "./CreativeItem";
-import { useAds } from "../providers/AdsProvider/useAds";
-import { paths } from "../paths";
+import { useAds } from "../../providers/AdsProvider/useAds";
+import { paths } from "../../paths";
+import styles from "./HomePage.module.scss";
+import { CreativeItem } from "../CreativeItem";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -14,25 +15,10 @@ export const HomePage = () => {
   };
 
   return (
-    <div style={{ marginBottom: "80px" }}>
+    <div className={styles.homePage}>
       <h1>Chose your creatives</h1>
-      <div
-        style={{
-          display: "flex",
-          gap: "16px",
-          backgroundColor: "lightgray",
-          padding: "16px",
-          borderRadius: "12px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flex: 4,
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
+      <div className={styles.content}>
+        <div className={styles.adsContainer}>
           {allQuickAds.map((creative) => (
             <CreativeItem
               key={creative.id}
@@ -42,37 +28,28 @@ export const HomePage = () => {
             />
           ))}
         </div>
-        <div
-          style={{
-            flex: 1,
-            borderRadius: "12px",
-            backgroundColor: "white",
-            display: "flex",
-            flexDirection: "column",
-            padding: "16px",
-            gap: "16px",
-          }}
-        >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "14px" }}>quick_ad</span>
+        <div className={styles.controlsContainer}>
+          <div className={styles.results}>
+            <span className={styles.controlName}>quick_ad</span>
             <span
-              style={{ fontSize: "11px" }}
+              className={styles.controlValue}
             >{`${allQuickAds.length} results`}</span>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
+          <div className={styles.selected}>
+            <div className={styles.selectedItem}>
               <input
                 type="checkbox"
                 id="selectAll"
-                onChange={handleSelectAll}
+                className={styles.checkbox}
+                onClick={handleSelectAll}
                 checked={selectedIds.length === allQuickAds.length}
               />
-              <label style={{ fontSize: "14px" }} htmlFor="selectAll">
+              <label className={styles.controlName} htmlFor="selectAll">
                 Select All
               </label>
             </div>
             <span
-              style={{ fontSize: "11px" }}
+              className={styles.controlValue}
             >{`${selectedIds.length} selected`}</span>
           </div>
           <button

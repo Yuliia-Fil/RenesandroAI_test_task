@@ -1,0 +1,15 @@
+.page {
+  height: 100vh;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background-color: lightgray;
+  border-radius: 12px;
+  margin-bottom: 60px;
+  max-height: 60%;
+}

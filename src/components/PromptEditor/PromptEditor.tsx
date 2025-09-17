@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Templates } from "./Templates";
-import { TextArea } from "./Textarea";
-import type { Creative } from "../types";
-import { useAds } from "../providers/AdsProvider/useAds";
-import { paths } from "../paths";
+import { Templates } from "../Templates";
+import { TextArea } from "../Textarea/Textarea";
+import type { Creative } from "../../types";
+import { useAds } from "../../providers/AdsProvider/useAds";
+import { paths } from "../../paths";
+import styles from "./PromptEditor.module.scss";
 
 type Props = {
   errorMessage: string;
@@ -40,42 +41,28 @@ export const PromptEditor = ({
     alert("Changes saved!");
   };
 
-  const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPrompt(e.target.value);
+  const handlePromptChange = (value: string) => {
+    setPrompt(value);
     setErrorMessage("");
   };
 
   useEffect(() => setPrompt(""), [selectedCreative]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flex: 2.5,
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          height: "100%",
-        }}
-      >
-        <h2 style={{ margin: 0 }}>Change with prompt</h2>
-        <Templates setPrompt={setPrompt} />
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <h2>Change with prompt</h2>
+        <Templates onChange={handlePromptChange} />
         <TextArea
           prompt={prompt}
           handleEditCreative={() => onEditCreative(prompt)}
           onChange={handlePromptChange}
         />
         {errorMessage && (
-          <span style={{ fontSize: "16px", color: "red" }}>{errorMessage}</span>
+          <span className={styles.errorMessage}>{errorMessage}</span>
         )}
       </div>
-      <div style={{ display: "flex", gap: "16px", justifyContent: "end" }}>
+      <div className={styles.buttons}>
         <button className="white-button" onClick={() => navigate(paths.HOME)}>
           Back to all
         </button>
